@@ -1,0 +1,22 @@
+Step 1:
+=======
+* take Makefile in exec.ia64 folder and move it to its own folder.
+* copy src/ directory to this folder
+* change SRCROOT in Makefile to ./src/
+
+Step 2:
+=======
+* Copy all env variables from ia64 template to Makefil directory so that 
+  we don't have to include it
+* Change src/atmos_solo/atmos_model.f90, where the main program exists.
+  edit `program atmos_model` to `module atmos_model` so that there is no
+  executable.
+* Add -fPIC to FFLAGS in Makefile so that code can go into a library.
+
+* Surround the executable part of the program with a subroutine `run_this_model`,
+  move the `contains` statement to above this subroutine, and move all data declarations
+  to above the `contains` statement.
+
+* Change the last line of the Makefile, which compiles the program into a command which
+  creates a static library (ar rcs library.a <object files>).
+
